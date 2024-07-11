@@ -1,25 +1,29 @@
 let map;
 let mapMoon;
-let blue;
+let ISS;
 
 function preload() {
+  //Texture for Earth
   map = loadImage("./images/earth1.png");
+  //Texture for the Moon
   mapMoon = loadImage("./images/moon.png");
-  blue = loadImage("./images/blue.png")
+  //Texture highlight for the ISS
+  ISS = loadImage("./images/yellow.jpg")
+  
 }
 
 function setup() { 
   createCanvas(1200, 600, WEBGL);
-
   noStroke();
 } 
 
 function draw() { 
+  // Debug mode allows a grid to be displayed inside the canvas
+  // debugMode(800, 6, 0, 0, 0, 800, 0, 0, 0)
+  perspective(.5, 2, 10, 60000);
 
-  perspective(.5, 2, 100, 30000)
-
-   //This section is the Earth and the texture for the Earth
-    background(255,0,0);
+   //This section is the Earth
+    background(0);
     orbitControl();
     smooth();
     push();
@@ -29,7 +33,7 @@ function draw() {
     sphere(200);
     pop();
 
-   //This section is the Moon and the texture for the Moon
+    //This section is the Moon
     push();
     rotateWithFrameCountMoon();
     translate(0, 0, 6000);
@@ -38,15 +42,17 @@ function draw() {
     sphere(50);
     pop();
 
+    //This section is the code for the ISS
     push();
     rotateWithFrameCountBlue();
     translate(0, 0, 207);
     rotate(51.6);
-    texture(blue);
+    texture(ISS);
     sphere(2);
     pop();
 }
 
+//Below is the code for the orbit paths and rotation of the modeled items
 function rotateWithFrameCount(){
   rotateY(frameCount/120);
 }
@@ -56,5 +62,6 @@ function rotateWithFrameCountMoon(){
 }
 
 function rotateWithFrameCountBlue(){
-  rotateY(frameCount/70);
+  rotate(45);
+  rotateY(frameCount/7)
 }
